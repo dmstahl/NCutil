@@ -8,6 +8,7 @@
 import sys
 import argparse
 import os
+import re
 import subprocess
 import sqlite3
 
@@ -50,7 +51,7 @@ def get_nc_db():
             nc_db = nc_dbs[-1]
     # Support for osx 10.10 added via randomly generated id for
     # Notification Center Database
-    elif osx_major == '10.10' or osx_major == '10.11':
+    elif re.search(r'10\.\d\d', osx_major):
         darwin_user_dir = subprocess.check_output(
             ['/usr/bin/getconf', 'DARWIN_USER_DIR']).rstrip()
         nc_db = os.path.join(
